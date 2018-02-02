@@ -1,0 +1,9 @@
+Read the attached file and submit your homework as a single PDF file attachment via Sakai, and don't copy anything from the given file. Otherwise, you may be penalized.
+
+Note: For the ER Diagram, it is recommended to use UML tools to generate it. The tool in the attachment may also help. This tool is only for Windows                 OS, thus people having other Operating systems can use other tools.
+
+          If you want to draw the ER Diagram by hand and take a picture, please include it in the PDF file and make sure it is clear enough for reading.
+
+          There is no way that you can argue for your handwriting or other unexpected things (e.g. submitting multiple files for this homework) later.
+
+          Please submit your homework on time, late submission is not acceptable.
