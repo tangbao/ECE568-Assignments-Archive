@@ -4,105 +4,77 @@
 
 ## Question 1
 ### (1)
-![ER](https://s1.ax1x.com/2018/02/03/9VObnA.png)
+![ER](https://s1.ax1x.com/2018/02/03/9ZkPu6.png)
 ### (2)
 ```sql
-CREATE TABLE certifications
+CREATE TABLE gym
 (
-  employee           CHAR(20) DEFAULT '' NOT NULL,
-  certification_name CHAR(20) DEFAULT '' NOT NULL,
-  PRIMARY KEY (employee, certification_name)
+  name        CHAR(20) NOT NULL PRIMARY KEY,
+  street_no   INTEGER,
+  street_name CHAR(40),
+  zip_code    INT,
+  manager     CHAR(11) NOT NULL,
+  FOREIGN KEY (manager) REFERENCES employee (SSN)
 )
-  ENGINE = MyISAM;
-
-CREATE TABLE customer
-(
-  SSN  CHAR(11) NOT NULL
-    PRIMARY KEY,
-  name CHAR(20) NULL,
-  age  INT      NULL,
-  CONSTRAINT customer_SSN_uindex
-  UNIQUE (SSN)
-)
-  ENGINE = MyISAM;
 
 CREATE TABLE employee
 (
   SSN            CHAR(11) NOT NULL
     PRIMARY KEY,
-  name           CHAR(20) NULL,
-  specialization CHAR(20) NULL,
-  CONSTRAINT employee_SSN_uindex
-  UNIQUE (SSN)
+  name           CHAR(20),
+  specialization CHAR(20)
 )
-  ENGINE = MyISAM;
 
-CREATE TABLE go_to
+CREATE TABLE customer
 (
-  customer CHAR(11) NULL,
-  gym      CHAR(40) NULL
+  SSN  CHAR(11) NOT NULL PRIMARY KEY,
+  name CHAR(20),
+  age  INTEGER
 )
-  ENGINE = MyISAM;
-
-CREATE INDEX customer_SSN
-  ON go_to (customer);
-
-CREATE INDEX gym_name
-  ON go_to (gym);
-
-CREATE TABLE guest
-(
-  name     CHAR(20) NULL,
-  age      INT      NULL,
-  customer CHAR(11) NULL
-)
-  ENGINE = MyISAM;
-
-CREATE INDEX customer_SSN
-  ON guest (customer);
-
-CREATE TABLE gym
-(
-  name        CHAR(20) NOT NULL
-    PRIMARY KEY,
-  street_no   INT      NULL,
-  street_name CHAR(40) NULL,
-  zip_code    INT      NULL,
-  manager     CHAR(11) NOT NULL,
-  CONSTRAINT gym_name_uindex
-  UNIQUE (name)
-)
-  ENGINE = MyISAM;
-
-CREATE INDEX manager_SSN
-  ON gym (manager);
 
 CREATE TABLE phone_no
 (
-  phone_no INT      NOT NULL
-    PRIMARY KEY,
-  gym      CHAR(20) NULL,
-  CONSTRAINT phone_no_phone_no_uindex
-  UNIQUE (phone_no)
+  phone_no LONG NOT NULL PRIMARY KEY,
+  gym      CHAR(20)
+  FOREIGN KEY (gym) REFERENCES gym (name)
 )
-  ENGINE = MyISAM;
 
-CREATE INDEX gym_name
-  ON phone_no (gym);
+CREATE TABLE go_to
+(
+  customer CHAR(11),
+  gym      CHAR(20),
+  PRIMARY KEY (customer, gym),
+  FOREIGN KEY (customer) REFERENCES customer (SSN),
+  FOREIGN KEY (gym) REFERENCES gym (name)
+)
+
+CREATE TABLE guest
+(
+  name     CHAR(20),
+  age      INTEGER,
+  customer CHAR(11),
+  PRIMARY KEY (customer, name, age),
+  FOREIGN KEY (customer) REFERENCES customer (SSN)
+)
 
 CREATE TABLE work_at
 (
   gym       CHAR(20) NOT NULL,
   employee  CHAR(11) NOT NULL,
-  percetage INT      NOT NULL,
-  PRIMARY KEY (gym, employee, percetage)
+  percetage REAL     NOT NULL,
+  work_hour CHAR(20) NOT NULL,
+  PRIMARY KEY (gym, employee, percetage),
+  FOREIGN KEY (gym) REFERENCES gym (name),
+  FOREIGN KEY (employee) REFERENCES employee (SSN)
 )
-  ENGINE = MyISAM;
 
-CREATE INDEX employee_SSN
-  ON work_at (employee);
-
-
+CREATE TABLE certifications
+(
+  employee           CHAR(11) NOT NULL,
+  certification_name CHAR(20) NOT NULL,
+  PRIMARY KEY (employee, certification_name),
+  FOREIGN KEY (employee) REFERENCES employee (SSN)
+)
 ```
 ## Question 2
 ### (1)
@@ -118,7 +90,7 @@ WHERE NOT EXISTS((SELECT P.pid
 ```
 ### (2)
 ```sql
-SELECT C.sid
+SELECT DISTINCT C.sid
 FROM Catalog C
 WHERE C.cost > (SELECT AVG(C1.cost)
                FROM Catalog C1
@@ -156,10 +128,8 @@ WHERE EXISTS(SELECT P.color
 SELECT S.sname, MAX(C.cost)
 FROM Suppliers S, Catalog C, Parts P
 WHERE S.sid = C.sid, C.pid = P.pid
-GROUP BY S.sid
-HAVING ANY(P.color = "red") AND ANY(P.color = "green")
+    AND P.color IN ("red", "green")
 ```
-
 ## Question 3
 ### 1)
 ```sql
@@ -253,8 +223,6 @@ WHERE Movies.MovieID NOT IN
 After doing some research on triggers, I find that a trigger will not call itself recursively by default. That is, an update trigger does not call itself in response to a second update to the same table within the trigger.
 
 And I suppose the data type of price is **float**.
-
-If the trigger calls itself recursively, the results will be 3, 0.75, 0.75, respectively.
 ### a)
 The price of pruchaseID #111 will be set to 3.
 It will execute statements in the order of:
