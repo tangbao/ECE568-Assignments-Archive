@@ -11,7 +11,12 @@
 ```sql
 SELECT S.sname
 FROM Suppliers S
-WHERE S.sid = C.sid, P.pid = C.pid;
+WHERE NOT EXISTS((SELECT P.pid
+                  FROM Parts P)
+                EXCEPT
+                (SELECT C.pid
+                 FROM Catalog C
+                 WHERE C.sid = S.sid))
 ```
 ### (2)
 ```sql
