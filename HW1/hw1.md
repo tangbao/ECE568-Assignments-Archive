@@ -4,8 +4,106 @@
 
 ## Question 1
 ### (1)
+![ER](https://s1.ax1x.com/2018/02/03/9VObnA.png)
 ### (2)
+```sql
+CREATE TABLE certifications
+(
+  employee           CHAR(20) DEFAULT '' NOT NULL,
+  certification_name CHAR(20) DEFAULT '' NOT NULL,
+  PRIMARY KEY (employee, certification_name)
+)
+  ENGINE = MyISAM;
 
+CREATE TABLE customer
+(
+  SSN  CHAR(11) NOT NULL
+    PRIMARY KEY,
+  name CHAR(20) NULL,
+  age  INT      NULL,
+  CONSTRAINT customer_SSN_uindex
+  UNIQUE (SSN)
+)
+  ENGINE = MyISAM;
+
+CREATE TABLE employee
+(
+  SSN            CHAR(11) NOT NULL
+    PRIMARY KEY,
+  name           CHAR(20) NULL,
+  specialization CHAR(20) NULL,
+  CONSTRAINT employee_SSN_uindex
+  UNIQUE (SSN)
+)
+  ENGINE = MyISAM;
+
+CREATE TABLE go_to
+(
+  customer CHAR(11) NULL,
+  gym      CHAR(40) NULL
+)
+  ENGINE = MyISAM;
+
+CREATE INDEX customer_SSN
+  ON go_to (customer);
+
+CREATE INDEX gym_name
+  ON go_to (gym);
+
+CREATE TABLE guest
+(
+  name     CHAR(20) NULL,
+  age      INT      NULL,
+  customer CHAR(11) NULL
+)
+  ENGINE = MyISAM;
+
+CREATE INDEX customer_SSN
+  ON guest (customer);
+
+CREATE TABLE gym
+(
+  name        CHAR(20) NOT NULL
+    PRIMARY KEY,
+  street_no   INT      NULL,
+  street_name CHAR(40) NULL,
+  zip_code    INT      NULL,
+  manager     CHAR(11) NOT NULL,
+  CONSTRAINT gym_name_uindex
+  UNIQUE (name)
+)
+  ENGINE = MyISAM;
+
+CREATE INDEX manager_SSN
+  ON gym (manager);
+
+CREATE TABLE phone_no
+(
+  phone_no INT      NOT NULL
+    PRIMARY KEY,
+  gym      CHAR(20) NULL,
+  CONSTRAINT phone_no_phone_no_uindex
+  UNIQUE (phone_no)
+)
+  ENGINE = MyISAM;
+
+CREATE INDEX gym_name
+  ON phone_no (gym);
+
+CREATE TABLE work_at
+(
+  gym       CHAR(20) NOT NULL,
+  employee  CHAR(11) NOT NULL,
+  percetage INT      NOT NULL,
+  PRIMARY KEY (gym, employee, percetage)
+)
+  ENGINE = MyISAM;
+
+CREATE INDEX employee_SSN
+  ON work_at (employee);
+
+
+```
 ## Question 2
 ### (1)
 ```sql
