@@ -1,4 +1,6 @@
 Instructions
+
+
 Read Section 1.3.2 Case Study 2: Personal Investment Assistant in the [course lecture notes](http://www.ece.rutgers.edu/~marsic/books/SE/book-SE_marsic.pdf). Also visit these websites:
 
 [Technical Analysis](http://en.wikipedia.org/wiki/Technical_analysis)
