@@ -4,13 +4,19 @@
 
 <bib> 
     <book>
-        <author>Leslie Lamport</author>
+        <author>
+            <first_name>Leslie</first_name>
+            <last_name>Lamport</last_name>
+         </author>
         <title>Latex: A Document Preparation System </title> 
         <year>1986</year> 
         <publisher>Addison-Wesley</publisher>
     </book>
     <article>
-        <author>David Marr</author>
+        <author>
+            <first_name>David</first_name>
+            <last_name>Marr</last_name>
+        </author>
         <title>Visual information processing</title> 
         <year>1980</year>
         <volume>290</volume>
@@ -20,7 +26,10 @@
         <journal>Phil. Trans. Roy. Soc. B</journal> 
     </article>
     <article>
-        <author>R. K. Clifton </author>
+        <author>
+            <first_name>R. K.</first_name>
+            <last_name>Clifton</last_name>
+        </author>
         <title>Breakdown of echo suppression in the precedence
             effect</title> 
         <year>1987</year> 
@@ -31,16 +40,22 @@
         </page>
         <journal>J. Acoust. Soc. Am. </journal> 
     </article>
-    
     <book>
-        <author>David Marr</author> 
+        <author>
+            <first_name>David</first_name>
+            <last_name>Marr</last_name>    
+        </author> 
         <title>Vision</title> 
         <year>1982</year>
-        <address> NY </address> 
+        <!-- modified " NY " to "NY" -->
+        <address>NY</address> 
         <publisher>Freeman</publisher>
     </book>
     <article>
-        <author>David Marr</author>
+        <author>
+            <first_name>David</first_name>
+            <last_name>Marr</last_name>
+        </author>
         <title>Visual information processing</title> 
         <year>1980</year>
         <volume>290</volume>
@@ -49,4 +64,77 @@
             <to>218</to> </page>
         <journal> Phil. Trans. Roy. Soc. B</journal> 
     </article>
+    
+    <!-- new content start -->
+    
+    <book>
+        <author>
+            <first_name>Robert</first_name>
+            <last_name>Kuhn</last_name>
+        </author>
+        <title>The Man Who Changed China: The Life and Legacy of Jiang Zemin</title>
+        <year>2005</year>
+        <address>China</address>
+        <publisher>New York: Crown Publishers</publisher>
+    </book>
+    
+    <book>
+        <author>
+            <first_name>Cixin</first_name>
+            <last_name>Liu</last_name>
+        </author>
+        <title>The Three-Body Problem</title>
+        <year>2008</year>
+        <!-- publisher missed -->
+    </book>
+ 
+    <article>
+        <author>
+            <first_name>Khaled</first_name>
+            <last_name>Almakadmeh</last_name>
+        </author>
+        <title>Towards a Reference Model of Software Resources Quality</title>
+        <year>2018</year>
+        <volume>14</volume>
+        <page>
+            <from>182</from>
+            <to>198</to>
+        </page>
+        <journal>Journal of Computer Science</journal>
+    </article>
+    
+    <article>
+        <author>
+            <first_name>Tao</first_name>
+            <last_name>Xie</last_name>
+        </author>
+        <title>Preface</title>
+        <year>2017</year>
+        <!-- volume missed -->
+        <page>
+            <from>1057</from>
+            <to>1059</to>
+        </page>
+        <journal>Journal of Computer Science and Technology</journal>
+    </article>
+    
+    <phd_theses>
+        <author>
+            <first_name>Thomas</first_name>
+            <last_name>Dimiduk</last_name>
+        </author>
+        <title>Holographic Microscopy for Soft Matter and Biophysics</title>
+        <year>2017</year>
+        <university>Harvard University</university>
+    </phd_theses>
+    
+    <phd_theses>
+        <author>
+            <first_name>Tim Allan</first_name>
+            <last_name>Wheeler</last_name>
+        </author>
+        <title>Automotive safety validation in simulation</title>
+        <year>2018</year>
+        <university>Stanford University</university>
+    </phd_theses>
 </bib>
