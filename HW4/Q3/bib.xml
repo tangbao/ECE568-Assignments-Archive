@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="bib.xsl"?>
+<!DOCTYPE bib SYSTEM "bib.dtd">
+
+<bib> 
+    <book>
+        <author>Leslie Lamport</author>
+        <title>Latex: A Document Preparation System </title> 
+        <year>1986</year> 
+        <publisher>Addison-Wesley</publisher>
+    </book>
+    <article>
+        <author>David Marr</author>
+        <title>Visual information processing</title> 
+        <year>1980</year>
+        <volume>290</volume>
+        <page>
+            <from>199</from>
+            <to>218</to> </page>
+        <journal>Phil. Trans. Roy. Soc. B</journal> 
+    </article>
+    <article>
+        <author>R. K. Clifton </author>
+        <title>Breakdown of echo suppression in the precedence
+            effect</title> 
+        <year>1987</year> 
+        <volume>82</volume>
+        <page> 
+            <from>1834</from> 
+            <to>1835</to>
+        </page>
+        <journal>J. Acoust. Soc. Am. </journal> 
+    </article>
+    
+    <book>
+        <author>David Marr</author> 
+        <title>Vision</title> 
+        <year>1982</year>
+        <address> NY </address> 
+        <publisher>Freeman</publisher>
+    </book>
+    <article>
+        <author>David Marr</author>
+        <title>Visual information processing</title> 
+        <year>1980</year>
+        <volume>290</volume>
+        <page>
+            <from>199</from>
+            <to>218</to> </page>
+        <journal> Phil. Trans. Roy. Soc. B</journal> 
+    </article>
+</bib>

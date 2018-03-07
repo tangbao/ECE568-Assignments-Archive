@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT bib ( (book | article)+)>
+<!ELEMENT book ( author, title, year, (address)?, publisher )> 
+<!ELEMENT article ( author, title, year, volume, page, journal) > 
+<!ELEMENT page (from, to)>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT year (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT publisher (#PCDATA)>
+<!ELEMENT from (#PCDATA)>
+<!ELEMENT to (#PCDATA)>
+<!ELEMENT journal (#PCDATA)>
+<!ELEMENT volume (#PCDATA)>

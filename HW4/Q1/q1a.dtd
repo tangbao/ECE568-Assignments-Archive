@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT products (product*)>
+<!ELEMENT product (name, price, description, store*)>
+<!ELEMENT store (name, phones, markup)>
+
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT phones (#PCDATA)>
+<!ELEMENT markup (#PCDATA)>
+
+<!ATTLIST product pid CDATA #REQUIRED>
+<!ATTLIST store sid CDATA #REQUIRED>
