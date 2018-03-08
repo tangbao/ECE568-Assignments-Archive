@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<db>
+    <products>
+        <row>
+            <pid>p123</pid>
+            <name>gizmo</name>
+            <price>22.99</price>
+            <description>great</description>
+        </row>
+        <row>
+            <pid>p231</pid>
+            <name>gizmoPlus</name>
+            <price>99.99</price>
+            <description>more features</description>
+        </row>
+        <row>
+            <pid>p312</pid>
+            <name>gadget</name>
+            <price>59.99</price>
+            <description>good value</description>
+        </row>
+    </products>
+    <stores>
+        <row>
+            <sid>s323</sid>
+            <name>Wiz</name>
+            <phones>555-1234</phones>
+        </row>
+        <row>
+            <sid>s521</sid>
+            <name>Econo-Wiz</name>
+            <phones>555-6543</phones>
+        </row>
+    </stores>
+    <sells>
+        <row>
+            <sid>s323</sid>
+            <pid>p231</pid>
+            <markup>10%</markup>
+        </row>
+        <row>
+            <sid>s323</sid>
+            <pid>p123</pid>
+            <markup>25%</markup>
+        </row>
+        <row>
+            <sid>s323</sid>
+            <pid>p123</pid>
+            <markup>15%</markup>
+        </row>
+    </sells>
+</db>
