@@ -71,6 +71,51 @@ GROUP BY P.name
 
 ### Q2
 
+(a)
+```
+for $x in doc("q2.xml")/broadway//title
+  return
+    <result>
+      {$x}
+    </result>
+```
+
+(b)
+```
+for $x in doc("q2.xml")/broadway/theater[date = "11/9/2008"]
+  where some $b in $x/price satisfies data($b) < 35
+  return
+    <theater>
+      {$x/title}{$x/address}
+    </theater>
+```
+
+(c)
+```
+for $x in doc("q2.xml")/broadway/concert[type = "chamber orchestra"]
+  where avg(data($x/price))>=50
+  return
+  <result>
+    {$x/title}
+  </result>
+```
+
+(d)
+```
+for $d in distinct-values(doc("q2.xml")//date)
+  for $x in //theater[date = $d] | //concert[date = $d] | //opera[date=$d]
+    return
+      <groupByDate>
+            <day>
+              {$d}
+              <show>
+                {$x/title}
+                {$x/price}
+              </show>
+            </day>
+      </groupByDate>
+```
+
 ### Q3
 
 Please check the Q3 folder for complete XML, XST and DTD files.
@@ -88,7 +133,7 @@ modified XSL:
 <xsl:value-of select="author/first_name"/>.
 
 <!--
-  Under bib/article, change the things of publisher, address and year like this
+  Under bib/book, change the things of publisher, address and year like this
 -->
 
 <!-- add brackets and spaces -->
@@ -97,6 +142,13 @@ modified XSL:
 <xsl:value-of select="address"/>
 <xsl:text> </xsl:text>
 <xsl:value-of select="year"/>).
+
+<!--
+  Under bib/article, change the things of journal, volume and page like this
+-->
+<b><xsl:value-of select="journal"/>,
+   <xsl:value-of select="volume"/></b>,
+  pp.<xsl:apply-templates select="page"/>
 ```
 
 modified XML:

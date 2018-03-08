@@ -31,10 +31,10 @@
                   <li>
                       <xsl:value-of select="author/last_name"/>,
                       <xsl:value-of select="author/first_name"/>. 
-                      <b><xsl:value-of select="title"/></b>, 
-                      <em><xsl:value-of select="journal"/></em>, 
-                      <xsl:value-of select="volume"/>, 
-                      pages<xsl:apply-templates select="page"/> 
+                      <xsl:value-of select="title"/>, 
+                      <b><xsl:value-of select="journal"/>, 
+                          <xsl:value-of select="volume"/></b>, 
+                      pp.<xsl:apply-templates select="page"/> 
                       <xsl:value-of select="year"/>.
                   </li> 
                 </xsl:for-each>
