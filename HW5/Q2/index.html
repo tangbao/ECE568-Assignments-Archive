@@ -1,4 +1,115 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ECE 568 HW5 Zhongze_Tang</title>
+    <script type="text/javascript">
+      function unitChange(unit){
+        //change the sentence in result
+        document.getElementById('unit').innerHTML="You select to use "+unit+" units";
+        //change the value in table
+        if(unit=="SI"){
+          document.getElementById('unit_t1').innerHTML="(cm)";
+          document.getElementById('unit_t2').innerHTML="(cm)";
+          document.getElementById('unit_t3').innerHTML="(cm^3)";
+        }else{
+          document.getElementById('unit_t1').innerHTML="(ft)";
+          document.getElementById('unit_t2').innerHTML="(ft)";
+          document.getElementById('unit_t3').innerHTML="(ft^3)";
+        }
+      }
 
+      function shapeChange(shape){
+        //change the sentence in result
+        document.getElementById('shape').innerHTML="You selected to find the volume of "+shape;
+        //change the value in table
+        document.getElementById('shape_t').innerHTML=shape;
+      }
+
+      function resetForm(){
+        //reset the form
+        document.getElementById('myForm').reset();
+      }
+
+      function radiusChange(radius) {
+        //change the value in table
+        document.getElementById('radius').innerHTML=radius;
+      }
+
+      function heightChange(height){
+        //change the value in table
+        document.getElementById('height').innerHTML=height;
+      }
+
+      function calc(){
+        var shapeToCalc = docment.getElementById('shape_t').innerHTML;
+        document.write("asd");
+        var vol = 0;
+        if(shapeToCalc == 'Cylinder'){
+            vol = 1;
+        } else if (shapeToCalc == 'Sphere') {
+            vol = 2;
+        } else if (shapeToCalc == 'Cone') {
+            vol = 3;
+        }
+
+        docment.getElementById('volume').innerHTML=vol;
+      }
+    </script>
+  </head>
+
+  <body>
+    <h1>This web site will find the volume for a Cylinder, Sphere or Cone</h1>
+
+    <form id="myForm">
+      Select the units(English or SI)<br/>
+      <input type="radio" name="unit" id="english" value="english" onclick="unitChange('English')" checked>English
+      <input type="radio" name="unit" id="si" value="si" onclick="unitChange('SI')">SI
+
+      <br/><br/>Select the shape
+      <select name="shape" onchange="shapeChange(this.value)">
+        <option value="Cylinder">Cylinder</option>
+        <option value="Sphere">Sphere</option>
+        <option value="Cone">Cone</option>
+      </select>
+
+      <br/><br/>Enter the radius
+      <input type="text" name="radius" onchange="radiusChange(this.value)" required>
+
+      <br/><br/>For the cylinder and cone, enter the height
+      <input type="text" name="height" onchange="heightChange(this.value)">
+
+      <br/><br/>
+      <input type="button" name="reset" onclick="resetForm()" value="Reset the form">
+    </form>
+
+    <h3>Results</h3>
+    <p id="unit">You select to use English units</p>
+    <p id="shape">You selected to find the volume of Cylinder</p>
+
+    <table border="1">
+      <tr>
+        <th>Shape</th>
+        <th>Radius</th>
+        <th>Height</th>
+        <th>Volume</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td id="unit_t1">(ft)</td>
+        <td id="unit_t2">(ft)</td>
+        <td id="unit_t3">(ft^3)</td>
+      </tr>
+      <tr>
+        <td id="shape_t">Cylinder</td>
+        <td id="radius"></td>
+        <td id="height"></td>
+        <td id="volume"></td>
+      </tr>
+    </table>
+    <br/>
+    <input type="button" onclick="calc()" value="Calculate the result">
+
+    </p>
+    </body>
 </html>
