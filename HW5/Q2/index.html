@@ -25,11 +25,18 @@
         //change the value in table
         document.getElementById('shape_t').innerHTML=shape;
         //reset volume
-        resetVolume();
-        //todo enable or disable the height
-        // if(shape == 'Sphere'){
-        //
-        // }
+        setVolume('');
+        //enable or disable the height
+        if(shape == 'Sphere'){
+          document.getElementById('heightText').disabled = true;
+          document.getElementById('heightText').value='';
+          setHeight('N/A');
+        }else{
+          document.getElementById('heightText').disabled = false;
+          if(document.getElementById('height').innerHTML == 'N/A'){
+            setHeight('');
+          }
+        }
       }
 
       function resetForm(){
@@ -96,7 +103,7 @@
       <input type="text" name="radius" onchange="setRadius(this.value)" required>
 
       <br/><br/>For the cylinder and cone, enter the height
-      <input type="text" name="height" onchange="setHeight(this.value)">
+      <input type="text" id="heightText" onchange="setHeight(this.value)">
 
       <br/><br/>
       <input type="button" onclick="resetForm()" value="Reset the form">
