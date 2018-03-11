@@ -5,11 +5,18 @@ import arrow
 
 alpha = 5e-3
 beta = 11.1
-degree = 9
+degree = 7
+
 data_folder = './datasets'
-data_files = ['GOOG_0.csv', 'GOOG_1.csv', 'GOOG_2.csv', 'GOOG_2.csv', 'GOOG_3.csv'
+data_files = ['GOOG_0.csv', 'GOOG_1.csv', 'GOOG_2.csv', 'GOOG_3.csv'
     , 'GOOG_4.csv', 'GOOG_5.csv', 'GOOG_6.csv', 'GOOG_7.csv', 'GOOG_8.csv', 'GOOG_9.csv'
-    , 'GOOG_10.csv', 'GOOG_rest.csv']
+    , 'GOOG_10.csv']
+
+# data_files = ['test1.csv', 'test2.csv', 'test3.csv', 'test4.csv', 'test5.csv']
+# data_files = ['test4.csv']
+
+absolute_err_all = []
+relative_err_all = []
 
 
 def read_in_csv(file_name):
@@ -28,9 +35,9 @@ def read_in_csv(file_name):
             timestamp = arrow.get(row['timestamp']).replace(tzinfo='US/Pacific').timestamp
             x_raw.append(timestamp)
             y_raw.append(float(row['close']))
-        #get the earliest timestamp
+        # get the earliest timestamp
         time_earliest = arrow.get(row['timestamp']).replace(tzinfo='US/Pacific').timestamp
-        #calculate the number of days from the earliest day
+        # calculate the number of days from the earliest day
         x_raw = [int((i-time_earliest)/86400) for i in x_raw]
         x_today = [int((x_today[0]-time_earliest)/86400)]
     return np.asarray(x_raw), np.asarray(y_raw), np.asarray(x_today), np.asarray(y_today)
@@ -50,8 +57,7 @@ def mx(x):
 def s2x(x):
     return (1/beta + (phi(x).T).dot(S.dot(phi(x))))[0][0]
 
-# formula (1.69)
-# def Gaussian(xx, mx, s2x):
+
 for data_file in data_files:
     print(data_file)
     data_name = data_folder + '/' + data_file
@@ -67,35 +73,35 @@ for data_file in data_files:
     N = len(x_all)
     x_train = np.arange(0, 1.0, 1.0 / N)
     y_train = y_all[::-1]
-    x_test  = np.arange(0, 1.0 + 1.0 / N, 1.0 / N)
-
-    # print(x_train)
-    # print(y_train)
+    x_test = np.arange(0, 1.0 + 1.0 / N, 1.0 / N)
 
     # formula (1.72)
     S_inv = alpha * np.identity(degree + 1) + beta * np.sum([phi(x).dot(phi(x).T) for x in x_train], axis=0)
     S = np.linalg.inv(S_inv)
 
-    absolute_mean_err = 0
-    ave_relative_err = 0
-
-    for i in range(0, N-1):
-        absolute_mean_err = absolute_mean_err + abs(y_train[i] - mx(x_train[i]))
-        ave_relative_err = ave_relative_err + abs(y_train[i] - mx(x_train[i]))/y_train[i]
-
-    absolute_mean_err = absolute_mean_err / N
-    ave_relative_err = ave_relative_err / N
-
     # plt.plot(x_test, [mx(x) for x in x_test], color='0')
     # for x, t in zip(x_train, y_train):
     #     plt.scatter(x, t, color='b')
 
-    # print(x_test[-2])
-    print("The prediction of N+1 time is", mx(x_test[-2]),"±", 3*s2x(x_test[-2]))
+    predict_v = mx(x_test[-2])
+    variance = s2x(x_test[-2])
+    print("The prediction of N+1 time is", predict_v, "+-", variance)
     print("The real value is", y_t)
 
-    print("The absolute mean error is", absolute_mean_err)
-    print("The average relative error is", ave_relative_err)
+    absolute_err = abs(y_t-predict_v)
+    relative_err = absolute_err/y_t
+    absolute_err_all.append(absolute_err)
+    relative_err_all.append(relative_err)
+
+    print("The absolute error is", absolute_err)
+    print("The relative error is", relative_err)
 
     print()
     # plt.show()
+
+
+absolute_mean_err = np.average(absolute_err_all)
+ave_relative_err = np.average(relative_err_all)
+
+print("The overall absolute mean error is ", absolute_mean_err)
+print("The overall average relative error is ", ave_relative_err)

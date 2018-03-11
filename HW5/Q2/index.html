@@ -22,10 +22,10 @@
       </select>
 
       <br/><br/>Enter the radius
-      <input type="text" name="radius" onchange="setRadius(this.value)" required>
+      <input type="text" name="radius" onkeyup="setRadius(this.value)" required>
 
       <br/><br/>For the cylinder and cone, enter the height
-      <input type="text" id="heightText" onchange="setHeight(this.value)">
+      <input type="text" id="heightText" onkeyup="setHeight(this.value)">
 
       <br/><br/>
       <input type="button" onclick="resetForm()" value="Reset the form">

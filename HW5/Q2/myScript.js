@@ -23,13 +23,10 @@ function setShape(shape){
   //enable or disable the height
   if(shape == 'Sphere'){
     document.getElementById('heightText').disabled = true;
-    document.getElementById('heightText').value='';
     setHeight('N/A');
   }else{
     document.getElementById('heightText').disabled = false;
-    if(document.getElementById('height').innerHTML == 'N/A'){
-      setHeight('');
-    }
+    setHeight(document.getElementById('heightText').value);
   }
 }
 
@@ -46,13 +43,24 @@ function resetForm(){
 //todo check data type
 function setRadius(value) {
   //change the value in table
-  document.getElementById('radius').innerHTML=value;
+  if(!isNaN(value)){
+    document.getElementById('radius').innerHTML=value;
+  }else{
+    document.getElementById('radius').innerHTML='INVALID';
+  }
   setVolume('');
 }
 
 function setHeight(value){
   //change the value in table
-  document.getElementById('height').innerHTML=value;
+  if(!isNaN(value)){
+      document.getElementById('height').innerHTML=value;
+  }else{
+    if(value == 'N/A')
+      document.getElementById('height').innerHTML=value;
+    else
+      document.getElementById('height').innerHTML='INVALID';
+  }
   setVolume('');
 }
 
@@ -62,14 +70,18 @@ function calc(){
   var PI = 3.141592653;
   var r = document.getElementById('radius').innerHTML;
   var h = document.getElementById('height').innerHTML;
-  if(shapeToCalc == 'Cylinder'){
-      vol = PI*r*r*h;
-  } else if (shapeToCalc == 'Sphere') {
-      vol = PI*r*r*r*4/3;
-  } else if (shapeToCalc == 'Cone') {
-      vol = PI*r*r*h/3;
+  if(isNaN(r) || (isNaN(h) && shapeToCalc != 'Sphere')){
+    setVolume('INVALID');
+  }else{
+    if(shapeToCalc == 'Cylinder'){
+        vol = PI*r*r*h;
+    } else if (shapeToCalc == 'Sphere') {
+        vol = PI*r*r*r*4/3;
+    } else if (shapeToCalc == 'Cone') {
+        vol = PI*r*r*h/3;
+    }
+    setVolume(vol);
   }
-  setVolume(vol);
 }
 
 function setVolume(value){
