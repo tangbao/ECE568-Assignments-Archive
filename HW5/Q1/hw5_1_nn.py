@@ -1,3 +1,6 @@
+# -*- coding:utf-8 -*-
+#!/usr/bin/python
+
 '''
 
 A neural network using backpropagtion (with gradient descent) to train the XOR function.
@@ -88,19 +91,27 @@ def predict(x, theta1, theta2):
 def main():
     # learning_rate = input("Please input learning rate: ")
     # target_error = input("Plase input target error: ")
-    learning_rate = 0.5
-    target_error = 0.02
+    '''
+    change learning_rate and target_error here
+    '''
+    learning_rate = [0.05, 0.1, 0.3, 0.5, 0.75, 1]
+    target_error = 0.1
+
     theta1_init = random_init_weight(input_unit_num, hidden_unit_num)
     theta2_init = random_init_weight(hidden_unit_num, output_unit_num)
     print("The init weights Theta_1 is ", theta1_init)
     print("The init weights Theta_2 is ", theta2_init)
-    J, theta1, theta2, cnt = gradient_descent(learning_rate, target_error, theta1_init, theta2_init)
-    print("The final weights Theta_1 is ", theta1)
-    print("The final weights Theta_2 is ", theta2)
-    print("The final error is ", J)
-    print("the total number of batches run is ", cnt)
-    print("The prediction of [0, 0], [0, 1], [1, 0], [1, 1] is:")
-    predict(X, theta1, theta2)
+
+    for lr in learning_rate:
+        print("Learning rate is: ", lr)
+        print("Target error is: ", target_error)
+        J, theta1, theta2, cnt = gradient_descent(lr, target_error, theta1_init, theta2_init)
+        print("The final weights Theta_1 is ", theta1)
+        print("The final weights Theta_2 is ", theta2)
+        print("The final error is ", J)
+        print("the total number of batches run is ", cnt)
+        print("The prediction of [0, 0], [0, 1], [1, 0], [1, 1] is:")
+        predict(X, theta1, theta2)
 
 
 if __name__ == '__main__':
