@@ -2,6 +2,8 @@ Instructions
 
 Please submit your source code and Readme file via Sakai.
 
+// the book mentioned in the Network+Programming+Assignment.pdf is SE Appendix B.pdf
+
 
 You should implement 3 basic functions: GET, BOUNCE and EXIT, examples as below:
 
@@ -16,7 +18,7 @@ For Exit:
           - For example, for EXIT CHROME_ERRORCODE_6.2.2.6613", your server end should print out the message "CHROME_ERRORCODE_6.2.2.6613".
           For EXIT, your server end should print out a message like "Normal_Exit". The output may differ, depends on your default exit code.
 
-Note: You can apply any sign to replace "<>",  just make your server can be able to identify client input is OK. 
+Note: You can apply any sign to replace "<>",  just make your server can be able to identify client input is OK.
 
 
 This  time only, do not compress your files. The submission sample could be like this:
