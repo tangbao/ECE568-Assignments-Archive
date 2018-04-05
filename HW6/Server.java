@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-
 public class Server {
     public static void main(String[] args) {
         if (args.length != 1) { // Test for correct num. of arguments
@@ -21,7 +20,7 @@ public class Server {
             ex.printStackTrace();
         }
         while (true) { // run forever, waiting for clients to connect
-            System.out.println("\nWaiting for client to connect...");
+            System.out.println("\nWaiting for commands from client...");
             try {
                 Socket s_sock = rv_sock.accept();
                 BufferedReader in = new BufferedReader(
@@ -31,7 +30,7 @@ public class Server {
                         new OutputStreamWriter(s_sock.getOutputStream()), true);
                 System.out.println("Client's message: " + in.readLine());
                 out.println("I got your message");
-                s_sock.close();
+//                s_sock.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
