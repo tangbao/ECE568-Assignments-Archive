@@ -1,9 +1,11 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Base64;
 
 public class Client {
     public static void main(String[] args) {
@@ -13,41 +15,53 @@ public class Client {
         }
 
         int port_num = Integer.parseInt(args[1]);
-        Socket c_sock = new Socket();
-        try{
-            c_sock = new Socket(args[0], port_num);
-        } catch (IOException e){
-            e.printStackTrace();
-            System.out.println("Wrong hostname or port number");
-            System.exit(0);
-        }
+//        Socket c_sock;
 
         while (true){
             try {
+                Socket c_sock = new Socket(args[0], port_num);
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(c_sock.getInputStream()));
                 PrintWriter out = new PrintWriter(
                         new OutputStreamWriter(c_sock.getOutputStream()), true);
                 BufferedReader userEntry = new BufferedReader(
                         new InputStreamReader(System.in));
-                System.out.print("Type in the command: ");
 
-                String cmd = userEntry.readLine().trim(); // delete the SPACE in the head or tail
-                if(checkCmd(cmd)){
-                    out.println(cmd);
-                }else {
-                    continue;
+                String cmd = "";
+                while(!checkCmd(cmd)){
+                    System.out.print("\nType in the command: ");
+                    cmd = userEntry.readLine().trim(); // delete the SPACE in the head or tail
                 }
 
+                out.println(cmd);
                 String response = in.readLine();
-                System.out.println("    " + response);
-                if(response.equals("Good bye!")){
+                System.out.println(response); //output the first response
+                response = in.readLine();
+
+                if(response.equals("    Good bye!")){
                     c_sock.close();
-                    System.out.println("Disconnected from server successfully.");
+                    System.out.println(response);
+                    System.out.println("    Disconnected from server successfully.");
                     System.exit(0);
+                } else if(response.equals("    Invalid command.")){
+                    help();
+                    c_sock.close();
+                    continue;
+                } else if(response.equals("FILE")){
+                    response = in.readLine();
+                    System.out.println("\n======File content starts======");
+                    System.out.println(new String(Base64.getDecoder().decode(response.getBytes())));
+                    System.out.println("======File  content  ends======");
+                    response = in.readLine();
                 }
+
+                if(response != null){
+                    System.out.println(response);
+                }
+                c_sock.close();
             } catch (IOException ex) {
-                ex.printStackTrace();
+//                ex.printStackTrace();
+                System.out.println("Server is not online. Press Ctrl+C to stop reconnect.");
             }
         }
     }
@@ -58,18 +72,15 @@ public class Client {
         String[] cmds = cmd.split(" ");
         if(cmds[0].equals("\n") || cmds[0].equals("")){
             r = false;
-        }
-        if(cmds.length > 2){
+        }else if(cmds.length > 2){
             System.out.println("    Wrong command: too much parameters.");
             help();
             r = false;
-        }
-        if(!cmds[0].equals("GET") && !cmds[0].equals("BOUNCE") && !cmds[0].equals("EXIT")) {
+        }else if(!cmds[0].equals("GET") && !cmds[0].equals("BOUNCE") && !cmds[0].equals("EXIT")) {
             System.out.println("    Unknown command.\n");
             help();
             r = false;
-        }
-        if(cmds[0].equals("GET") || cmds[0].equals("BOUNCE")){
+        }else if(cmds[0].equals("GET") || cmds[0].equals("BOUNCE")){
             if(cmds.length != 2){
                 System.out.println("    Missing parameters.");
                 help();
