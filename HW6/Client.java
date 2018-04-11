@@ -15,7 +15,7 @@ public class Client {
         }
 
         int port_num = Integer.parseInt(args[1]);
-//        Socket c_sock;
+//        Socket c_sock; 
 
         while (true){
             try {
@@ -28,15 +28,15 @@ public class Client {
                         new InputStreamReader(System.in));
 
                 String cmd = "";
-                while(!checkCmd(cmd)){
+                while(!checkCmd(cmd)){ //check the validation of command first
                     System.out.print("\nType in the command: ");
                     cmd = userEntry.readLine().trim(); // delete the SPACE in the head or tail
                 }
 
-                out.println(cmd);
-                String response = in.readLine();
-                System.out.println(response); //output the first response
-                response = in.readLine();
+                out.println(cmd); //send cmd to server
+                String response = in.readLine(); //get the response from Server
+                System.out.println(response); //output the first response "Command received by Server"
+                response = in.readLine(); //get the real response
 
                 if(response.equals("    Good bye!")){
                     c_sock.close();
@@ -48,21 +48,22 @@ public class Client {
                     c_sock.close();
                     continue;
                 } else if(response.equals("FILE")){
-                    response = in.readLine();
+                    response = in.readLine(); //get the Base64 codes of file content
                     System.out.println("\n======File content starts======");
+                    //decode and output
                     System.out.println(new String(Base64.getDecoder().decode(response.getBytes())));
                     System.out.println("======File  content  ends======");
                     response = in.readLine();
                 }
 
-                if(response != null){
+                if(response != null){ //output the remaining output
                     System.out.println(response);
                 }
                 c_sock.close();
             } catch (IOException ex) {
 //                ex.printStackTrace();
                 System.out.println("Server is not online. Press Ctrl+C to stop reconnect.");
-            }
+           }
         }
     }
 
@@ -70,7 +71,7 @@ public class Client {
         //check validation of cmd
         boolean r = true;
         String[] cmds = cmd.split(" ");
-        if(cmds[0].equals("\n") || cmds[0].equals("")){
+        if(cmds[0].equals("\n") || cmds[0].equals("")){ //empty input
             r = false;
         }else if(cmds.length > 2){
             System.out.println("    Wrong command: too much parameters.");

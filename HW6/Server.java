@@ -7,7 +7,7 @@ import java.util.Base64;
 
 public class Server {
     public static void main(String[] args) throws IOException {
-        if (args.length != 1) { // Test for correct num. of arguments
+        if (args.length != 1) { // Test for correct num. of arguments 
             System.err.println("ERROR server port number not given");
             System.exit(1);
         }
@@ -27,11 +27,11 @@ public class Server {
                         new InputStreamReader(s_sock.getInputStream()));
                 PrintWriter out = new PrintWriter(
                         new OutputStreamWriter(s_sock.getOutputStream()), true);
-                String cmd = in.readLine();
+                String cmd = in.readLine(); //get the cmd
                 out.println("    Command received by server.");
 
                 if (checkCmd(cmd, out)) {
-                    execCmd(cmd, out);
+                    execCmd(cmd, out); //execute cmd
                 } else {
                     out.println("    Invalid command.");
                 }
@@ -59,7 +59,7 @@ public class Server {
             case "GET":
                 InputStream in = null;
                 byte[] data = null;
-                try{
+                try{ //read the file, and encode it into Base64
                     in = new FileInputStream(cmds[1]);
                     data = new byte[in.available()];
                     in.read(data);
